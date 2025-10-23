@@ -1,5 +1,5 @@
 # C Programming and Reverse Engineering
-Under content of "How to program C", by Deitel & Deitel
+Under content of "C How to program", by Deitel & Deitel
 
 _The content is being added slowly. Be patient!_
 
