@@ -42,7 +42,7 @@ call    _printf
 mov     eax, 0
 pop     rbp
 retn
-; } // starts at 1139
+; } 
 main endp
 
 _text ends
