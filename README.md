@@ -1,4 +1,4 @@
-# C Programming and Reverse Engineering Data Structures in C
+# C Programming and Reverse Engineering
 Under content of "How to program C", by Deitel & Deitel
 
 _The content is being added slowly. Be patient!_
