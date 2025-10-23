@@ -1,7 +1,7 @@
 # C Programming and Reverse Engineering Data Structures in C
 Under content of "How to program C", by Deitel & Deitel
 
-* The content is being added slowly. Be patient! *
+*The content is being added slowly. Be patient!
 
 1. Introduction to C Programming
 2. Structured Program Development in C
