@@ -114,4 +114,4 @@ loc_11BA:                               ; CODE XREF: main+57↑j
 	cmp     [rbp+var_10], 4
 	jbe     short loc_1192
 ```
-Arrays are handled by this pattern: `rbp+rax*4+var_30`
+An array's indexing are handled by this pattern: `rbp+rax*4+var_30`
