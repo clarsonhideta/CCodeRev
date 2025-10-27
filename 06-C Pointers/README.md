@@ -1,4 +1,3 @@
-
 Pointers are variables whose values are **memory addresses**. Normally, a variable directly contains a specific value. A pointer, however, contains an **address** of a variable that contains a specific value. In the sense, a variable name **directly** references a value, and a pointer **indirectly** references a value.
 ## Declaring Pointers
 Pointers must be defined before they can be used. The definition:
@@ -132,3 +131,10 @@ It's clear that pointer is saved at `rbp+var_8` and variable is saved at `rbp+va
 2. `lea rax, [rbp+var_C]` loads the address of `var_C` into `RAX`. 
 3. Then `mov [rbp+var_8], rax`, stores the address in `var_8`.
 `lea` has key role in dereferencing and pointer handling. 
+
+# Passing Arguments to Functions by Reference
+There are two ways to pass arguments to a function:
+1. pass-by-value
+2. pass-by-reference
+However all arguments in C are passed by value. Functions often require the capability to modify variables in the caller or receive a pointer to a large data object to avoid the overhead of receiving the object by value (which incurs the time and memory overheads of making a copy of the object).
+Pass-by-reference also can be used to enable a function to "return" multiple values to its caller by modifying variables in the caller.
