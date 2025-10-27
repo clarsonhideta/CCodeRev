@@ -136,5 +136,6 @@ It's clear that pointer is saved at `rbp+var_8` and variable is saved at `rbp+va
 There are two ways to pass arguments to a function:
 1. pass-by-value
 2. pass-by-reference
+
 However all arguments in C are passed by value. Functions often require the capability to modify variables in the caller or receive a pointer to a large data object to avoid the overhead of receiving the object by value (which incurs the time and memory overheads of making a copy of the object).
 Pass-by-reference also can be used to enable a function to "return" multiple values to its caller by modifying variables in the caller.
