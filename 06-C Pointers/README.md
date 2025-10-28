@@ -139,3 +139,116 @@ There are two ways to pass arguments to a function:
 
 However all arguments in C are passed by value. Functions often require the capability to modify variables in the caller or receive a pointer to a large data object to avoid the overhead of receiving the object by value (which incurs the time and memory overheads of making a copy of the object).
 Pass-by-reference also can be used to enable a function to "return" multiple values to its caller by modifying variables in the caller.
+## Pass-by-value
+Variable will be transferred by it's content and will be updated by new content.
+```C
+#include <stdio.h>
+
+int CubeByValue(int n);
+
+int main()
+{
+    int number = 5;
+    printf("The original value of number is %d", number);
+    number = CubeByValue(number);
+    printf("\nThe new value of number is %d\n", number);
+}
+
+int CubeByValue(int n)
+{
+    return n*n*n;
+}
+```
+Output:
+```bash
+The original value of number is 5
+The new value of number is 125
+```
+## Pass-by-reference
+Variable will be updated by it's address in memory!
+```C
+#include <stdio.h>
+
+void cubeByReference(int *nPtr);
+
+int main()
+{
+    int number = 5;
+    printf("The original value of number is %d", number);
+    cubeByReference(&number);
+    printf("\nThe new value of number is %d\n", number);
+}
+
+void cubeByReference(int *nPtr)
+{
+    *nPtr = *nPtr * *nPtr * *nPtr;
+}
+```
+Output:
+```bash
+The original value of number is 5
+The new value of number is 125
+```
+# Pointers and Arrays; Relationship
+```C
+#include <stdio.h>
+#define ARRAY_SIZE 4
+
+int main()
+{
+    int b[] = {10, 20, 30, 40};
+    int *bPtr = b;
+    
+    puts("Array b printed with:\nArray index notation");
+    for (size_t i = 0; i < ARRAY_SIZE; ++i)
+    {
+        printf("b[%u] = %d\n", i, b[i]);
+    }
+
+    puts("\nPointer/offset notation where\nthe pointer is the array name");
+    for (size_t offset = 0; offset < ARRAY_SIZE; ++offset)
+    {
+        printf("*(b + %u) = %d\n", offset, *(b + offset));
+    }
+
+    puts("\nPointer index notation");
+    for (size_t i = 0; i < ARRAY_SIZE; ++i)
+    {
+        printf("bPtr[%u] = %d\n", i, bPtr[i]);
+    }
+
+    puts("\nPointer/offset notation");
+    for(size_t offset = 0; offset < ARRAY_SIZE; ++offset)
+    {
+        printf("*(bPtr + %u) = %d\n", offset, *(bPtr + offset));
+    }
+}
+```
+Output:
+```bash
+Array b printed with:
+Array index notation
+b[0] = 10
+b[1] = 20
+b[2] = 30
+b[3] = 40
+
+Pointer/offset notation where
+the pointer is the array name
+*(b + 0) = 10
+*(b + 1) = 20
+*(b + 2) = 30
+*(b + 3) = 40
+
+Pointer index notation
+bPtr[0] = 10
+bPtr[1] = 20
+bPtr[2] = 30
+bPtr[3] = 40
+
+Pointer/offset notation
+*(bPtr + 0) = 10
+*(bPtr + 1) = 20
+*(bPtr + 2) = 30
+*(bPtr + 3) = 40
+```
