@@ -252,3 +252,135 @@ Pointer/offset notation
 *(bPtr + 2) = 30
 *(bPtr + 3) = 40
 ```
+
+# Double Pointer in C
+A double pointer stores the address of another pointer.
+```C
+int a = 10;
+int *p = &a;
+int **pp = &p;
+// int ***ppp = &pp;   3D pointer!
+```
+
+```C
+#include <stdio.h>
+
+int main() {
+    int a = 10;
+
+    int *p = &a;
+    int **pp = &p;
+
+    printf("Value of a       = %d\n", a);
+    printf("Value of *p      = %d\n", *p);
+    printf("Value of **pp    = %d\n", **pp);
+
+    printf("Address of a     = %p\n", (void*)&a);
+    printf("Value of p (address of a) = %p\n", (void*)p);
+    printf("Value of *pp (value of p) = %p\n", (void*)*pp);
+    printf("Address of p     = %p\n", (void*)&p);
+    printf("Value of pp (address of p) = %p\n", (void*)pp);
+
+    return 0;
+}
+```
+
+Output:
+```bash
+Value of a       = 10
+Value of *p      = 10
+Value of **pp    = 10
+Address of a     = 0x7ffd9b674494
+Value of p (address of a) = 0x7ffd9b674494
+Value of *pp (value of p) = 0x7ffd9b674494
+Address of p     = 0x7ffd9b674488
+Value of pp (address of p) = 0x7ffd9b674488
+```
+
+Decompiled in IDA Pro:
+```C
+int __fastcall main(int argc, const char **argv, const char **envp)
+{
+  int *v4; // [rsp+8h] [rbp-18h] BYREF
+  int v5; // [rsp+14h] [rbp-Ch] BYREF
+  const void **v6; // [rsp+18h] [rbp-8h]
+
+  v5 = 10;
+  v4 = &v5;
+  v6 = (const void **)&v4;
+  printf("Value of a       = %d\n", 10);
+  printf("Value of *p      = %d\n", *v4);
+  printf("Value of **pp    = %d\n", *(_DWORD *)*v6);
+  printf("Address of a     = %p\n", &v5);
+  printf("Value of p (address of a) = %p\n", v4);
+  printf("Value of *pp (value of p) = %p\n", *v6);
+  printf("Address of p     = %p\n", &v4);
+  printf("Value of pp (address of p) = %p\n", v6);
+  return 0;
+}
+```
+
+# Pointers to Functions
+It seems function pointer!
+```C
+#include <stdio.h>
+
+void greet()
+{
+    printf("Hello Greet!\n");
+}
+
+int main()
+{
+    void (*funcPtr)();
+    funcPtr = greet;
+
+    puts("Calling directly!\n");
+    greet();
+    puts("Calling indirectly\n");
+    funcPtr();
+}
+```
+Output:
+```bash
+Calling directly!
+
+Hello Greet!
+Calling indirectly
+
+Hello Greet!
+```
+Assembly:
+```Assembly
+public main
+main proc near
+
+var_8= qword ptr -8
+
+; __unwind {
+push    rbp
+mov     rbp, rsp
+sub     rsp, 10h
+lea     rax, greet
+mov     [rbp+var_8], rax
+lea     rax, aCallingDirectl ; "Calling directly!\n"
+mov     rdi, rax        ; s
+call    _puts
+call    greet
+lea     rax, aCallingIndirec ; "Calling indirectly\n"
+mov     rdi, rax        ; s
+call    _puts
+mov     rax, [rbp+var_8]
+call    rax
+mov     eax, 0
+leave
+retn
+; } // starts at 114F
+main endp
+
+_text ends
+```
+Function pointer and it's calling appears here:
+```Assembly
+call    rax
+```
